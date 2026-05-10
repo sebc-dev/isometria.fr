@@ -1,0 +1,92 @@
+---
+const features = [
+  {
+    title: 'Edge mondial',
+    body:
+      'Déploiement sur le réseau Cloudflare — latence minimale partout, sans gestion de régions.',
+  },
+  {
+    title: 'Dev = Prod',
+    body:
+      'workerd natif en local : `astro dev` et `astro preview` exécutent le même runtime que Workers.',
+  },
+  {
+    title: 'Type-safe',
+    body:
+      '`wrangler types` régénère les bindings KV / D1 / R2 dans `worker-configuration.d.ts`.',
+  },
+  {
+    title: 'CSS-first',
+    body:
+      'Tailwind v4.3 piloté par `@theme` dans `global.css` — plus de `tailwind.config.js`.',
+  },
+];
+---
+
+<section class="mx-auto max-w-3xl px-6 py-32">
+  <h2
+    data-scroll-heading
+    class="mb-16 text-3xl font-semibold tracking-tight sm:text-4xl"
+  >
+    Pourquoi cette stack ?
+  </h2>
+
+  <div class="space-y-10">
+    {
+      features.map((f) => (
+        <article
+          data-scroll-card
+          class="rounded-2xl border border-zinc-200 p-8 dark:border-zinc-800"
+        >
+          <h3 class="mb-2 text-xl font-semibold">{f.title}</h3>
+          <p class="text-zinc-600 dark:text-zinc-400">{f.body}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<script>
+  import { gsap, ScrollTrigger } from '@/lib/gsap';
+
+  let mm: ReturnType<typeof gsap.matchMedia> | null = null;
+
+  function animate() {
+    mm?.revert();
+    ScrollTrigger.killAll();
+    mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from('[data-scroll-heading]', {
+        y: 30,
+        opacity: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '[data-scroll-heading]',
+          start: 'top 85%',
+        },
+      });
+
+      gsap.utils.toArray<HTMLElement>('[data-scroll-card]').forEach((card) => {
+        gsap.from(card, {
+          y: 40,
+          opacity: 0,
+          duration: 0.7,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+          },
+        });
+      });
+    });
+  }
+
+  animate();
+  document.addEventListener('astro:page-load', animate);
+  document.addEventListener('astro:before-preparation', () => {
+    mm?.revert();
+    ScrollTrigger.killAll();
+    mm = null;
+  });
+</script>

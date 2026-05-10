@@ -7,22 +7,24 @@ const stack = [
 ];
 ---
 
-<section class="mx-auto max-w-3xl px-6 py-24">
+<section class="mx-auto max-w-3xl px-6 py-24" data-hero>
   <h1
+    data-hero-title
     class="mb-4 text-5xl font-semibold tracking-tight sm:text-6xl"
   >
     Isometria
   </h1>
-  <p class="mb-12 text-xl text-zinc-600 dark:text-zinc-400">
+  <p data-hero-text class="mb-12 text-xl text-zinc-600 dark:text-zinc-400">
     Boilerplate Astro 6 + Tailwind v4, prêt à déployer sur Cloudflare Workers.
   </p>
 
-  <ul
-    class="mb-12 grid gap-4 sm:grid-cols-2"
-  >
+  <ul data-hero-stack class="mb-12 grid gap-4 sm:grid-cols-2">
     {
       stack.map((item) => (
-        <li class="rounded-xl border border-zinc-200 p-5 transition hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700">
+        <li
+          data-hero-card
+          class="rounded-xl border border-zinc-200 p-5 transition hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700"
+        >
           <strong class="block font-semibold">{item.name}</strong>
           <span class="text-sm text-zinc-600 dark:text-zinc-400">
             {item.detail}
@@ -32,7 +34,7 @@ const stack = [
     }
   </ul>
 
-  <p class="text-sm text-zinc-600 dark:text-zinc-400">
+  <p data-hero-footer class="text-sm text-zinc-600 dark:text-zinc-400">
     <code
       class="rounded-md border border-zinc-200 bg-zinc-100 px-2 py-0.5 font-mono text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
       >npm run dev</code
@@ -40,3 +42,41 @@ const stack = [
     &nbsp;— lance workerd avec HMR
   </p>
 </section>
+
+<script>
+  import { gsap } from '@/lib/gsap';
+
+  let mm: ReturnType<typeof gsap.matchMedia> | null = null;
+
+  function animate() {
+    mm?.revert();
+    mm = gsap.matchMedia();
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap
+        .timeline({ defaults: { ease: 'power3.out' } })
+        .from('[data-hero-title]', { y: 32, opacity: 0, duration: 0.7 })
+        .from(
+          '[data-hero-text]',
+          { y: 20, opacity: 0, duration: 0.6 },
+          '-=0.4',
+        )
+        .from(
+          '[data-hero-card]',
+          { y: 24, opacity: 0, duration: 0.5, stagger: 0.08 },
+          '-=0.35',
+        )
+        .from(
+          '[data-hero-footer]',
+          { y: 12, opacity: 0, duration: 0.4 },
+          '-=0.2',
+        );
+    });
+  }
+
+  animate();
+  document.addEventListener('astro:page-load', animate);
+  document.addEventListener('astro:before-preparation', () => {
+    mm?.revert();
+    mm = null;
+  });
+</script>
