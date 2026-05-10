@@ -1,0 +1,29 @@
+{
+  "name": "isometria",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler types && astro dev",
+    "build": "wrangler types && astro check && astro build",
+    "preview": "wrangler types && astro build && astro preview",
+    "typecheck": "wrangler types && astro sync && astro check",
+    "deploy": "npm run build && wrangler deploy",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.9",
+    "@astrojs/cloudflare": "^13.0.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.0.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.2",
+    "wrangler": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  }
+}

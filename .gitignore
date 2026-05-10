@@ -1,0 +1,34 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment / secrets
+.dev.vars
+.env
+.env.*
+!.env.example
+
+# wrangler
+.wrangler/
+worker-configuration.d.ts
+
+# editor / OS
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# claude / agent skills caches
+.agents/
+.claude/skills/

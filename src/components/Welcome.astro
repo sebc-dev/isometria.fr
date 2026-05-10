@@ -1,0 +1,42 @@
+---
+const stack = [
+  { name: 'Astro 6.x', detail: 'SSG + adapter Cloudflare' },
+  { name: 'Workers', detail: 'Edge serverless mondial' },
+  { name: 'Tailwind v4', detail: 'CSS-first, plugin Vite' },
+  { name: 'workerd natif', detail: 'Dev & preview = production' },
+];
+---
+
+<section class="mx-auto max-w-3xl px-6 py-24">
+  <h1
+    class="mb-4 text-5xl font-semibold tracking-tight sm:text-6xl"
+  >
+    Isometria
+  </h1>
+  <p class="mb-12 text-xl text-zinc-600 dark:text-zinc-400">
+    Boilerplate Astro 6 + Tailwind v4, prêt à déployer sur Cloudflare Workers.
+  </p>
+
+  <ul
+    class="mb-12 grid gap-4 sm:grid-cols-2"
+  >
+    {
+      stack.map((item) => (
+        <li class="rounded-xl border border-zinc-200 p-5 transition hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700">
+          <strong class="block font-semibold">{item.name}</strong>
+          <span class="text-sm text-zinc-600 dark:text-zinc-400">
+            {item.detail}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="text-sm text-zinc-600 dark:text-zinc-400">
+    <code
+      class="rounded-md border border-zinc-200 bg-zinc-100 px-2 py-0.5 font-mono text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
+      >npm run dev</code
+    >
+    &nbsp;— lance workerd avec HMR
+  </p>
+</section>

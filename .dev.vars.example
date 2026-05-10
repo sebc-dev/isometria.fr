@@ -1,0 +1,6 @@
+# Secrets locaux pour `astro dev` / `astro preview` (workerd).
+# Copiez ce fichier en `.dev.vars` (ignoré par git) et complétez vos valeurs.
+# Astro 6 : accès via `import { env } from 'cloudflare:workers'` (PAS process.env).
+
+# EXAMPLE_API_KEY=changeme
+# DATABASE_URL=postgres://localhost:5432/isometria

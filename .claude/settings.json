@@ -1,0 +1,6 @@
+{
+  "enabledPlugins": {
+    "scd-astro@sebc-dev-marketplace": true,
+    "cloudflare@cloudflare": true
+  }
+}

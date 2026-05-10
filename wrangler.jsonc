@@ -1,0 +1,30 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "isometria",
+  "compatibility_date": "2026-03-13",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "limits": {
+    "cpu_ms": 50000
+  },
+  "vars": {
+    "ENVIRONMENT": "production"
+  }
+  // Décommentez selon vos besoins :
+  // "kv_namespaces": [
+  //   { "binding": "CACHE", "id": "<KV_NAMESPACE_ID>" }
+  // ],
+  // "d1_databases": [
+  //   { "binding": "DB", "database_id": "<D1_DATABASE_ID>", "database_name": "isometria" }
+  // ],
+  // "r2_buckets": [
+  //   { "binding": "STORAGE", "bucket_name": "isometria-assets" }
+  // ]
+}
