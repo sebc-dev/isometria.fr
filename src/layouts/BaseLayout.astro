@@ -1,5 +1,6 @@
 ---
 import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
 import '@/styles/global.css';
 
 interface Props {
@@ -19,6 +20,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonical} />
+
+    <Font cssVariable="--font-plex" preload />
+    <Font cssVariable="--font-nunito" preload />
+    <Font cssVariable="--font-jet" />
 
     <title>{title}</title>
     <meta name="description" content={description} />

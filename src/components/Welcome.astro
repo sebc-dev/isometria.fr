@@ -8,38 +8,28 @@ const stack = [
 ---
 
 <section class="mx-auto max-w-3xl px-6 py-24" data-hero>
-  <h1
-    data-hero-title
-    class="mb-4 text-5xl font-semibold tracking-tight sm:text-6xl"
-  >
-    Isometria
-  </h1>
-  <p data-hero-text class="mb-12 text-xl text-zinc-600 dark:text-zinc-400">
+  <h1 data-hero-title class="mb-4">Isometria</h1>
+
+  <p data-hero-text class="text-lead text-text-soft mb-12">
     Boilerplate Astro 6 + Tailwind v4, prêt à déployer sur Cloudflare Workers.
   </p>
 
-  <ul data-hero-stack class="mb-12 grid gap-4 sm:grid-cols-2">
+  <ul data-hero-stack class="mb-12 grid list-none gap-4 p-0 sm:grid-cols-2">
     {
       stack.map((item) => (
         <li
           data-hero-card
-          class="rounded-xl border border-zinc-200 p-5 transition-colors hover:border-zinc-300 dark:border-zinc-800 dark:hover:border-zinc-700"
+          class="rounded-md border border-border bg-surface p-5 transition-colors hover:border-border-strong"
         >
-          <strong class="block font-semibold">{item.name}</strong>
-          <span class="text-sm text-zinc-600 dark:text-zinc-400">
-            {item.detail}
-          </span>
+          <strong class="block text-text">{item.name}</strong>
+          <span class="text-sm text-text-soft">{item.detail}</span>
         </li>
       ))
     }
   </ul>
 
-  <p data-hero-footer class="text-sm text-zinc-600 dark:text-zinc-400">
-    <code
-      class="rounded-md border border-zinc-200 bg-zinc-100 px-2 py-0.5 font-mono text-zinc-900 dark:border-zinc-800 dark:bg-zinc-900 dark:text-zinc-100"
-      >npm run dev</code
-    >
-    &nbsp;— lance workerd avec HMR
+  <p data-hero-footer class="text-sm text-text-soft">
+    <code>npm run dev</code>&nbsp;— lance workerd avec HMR
   </p>
 </section>
 

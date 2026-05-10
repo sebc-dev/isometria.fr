@@ -24,22 +24,17 @@ const features = [
 ---
 
 <section class="mx-auto max-w-3xl px-6 py-32">
-  <h2
-    data-scroll-heading
-    class="mb-16 text-3xl font-semibold tracking-tight sm:text-4xl"
-  >
-    Pourquoi cette stack ?
-  </h2>
+  <h2 data-scroll-heading class="mb-16">Pourquoi cette stack ?</h2>
 
   <div class="space-y-10">
     {
       features.map((f) => (
         <article
           data-scroll-card
-          class="rounded-2xl border border-zinc-200 p-8 dark:border-zinc-800"
+          class="rounded-lg border border-border bg-surface p-8 transition-colors hover:border-border-strong"
         >
-          <h3 class="mb-2 text-xl font-semibold">{f.title}</h3>
-          <p class="text-zinc-600 dark:text-zinc-400">{f.body}</p>
+          <h3 class="mb-2">{f.title}</h3>
+          <p class="text-text-soft">{f.body}</p>
         </article>
       ))
     }

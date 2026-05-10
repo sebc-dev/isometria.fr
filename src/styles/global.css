@@ -1,25 +1,264 @@
 @import "tailwindcss";
 
-/* Design tokens — étendus dans le moteur Tailwind v4 (CSS-first config). */
-@theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif;
+/* =========================================================================
+   Design tokens — Isometria
+   Source de vérité : docs/design-tokens.md
+   ========================================================================= */
 
-  --color-surface: #f5f5f7;
-  --color-surface-dark: #16161a;
-  --color-border-subtle: #e5e5ea;
-  --color-border-subtle-dark: #26262c;
+@theme {
+  /* --- Couleurs : palette teal sauge ----------------------------------- */
+  --color-teal-50: #F0F5F4;
+  --color-teal-100: #DCE9E7;
+  --color-teal-200: #B9D3D0;
+  --color-teal-300: #8FB8B3;
+  --color-teal-400: #5A9792;
+  --color-teal-500: #3D807A;
+  --color-teal-600: #2E6F6A;
+  --color-teal-700: #265A56;
+  --color-teal-800: #1B4441;
+  --color-teal-900: #10302D;
+
+  /* --- Couleurs : palette crème (neutres + ink) ------------------------ */
+  --color-cream-50: #FFFFFF;
+  --color-cream-100: #FFFFFE;
+  --color-cream-200: #FEFDF9;
+  --color-cream-300: #FAF7EE;
+  --color-cream-400: #F1EDE0;
+  --color-cream-500: #DCD6C4;
+  --color-cream-600: #ADA896;
+  --color-cream-700: #6B6B62;
+  --color-cream-800: #45453F;
+  --color-cream-900: #2B2D2B;
+
+  /* --- Tokens sémantiques (working tokens) ----------------------------- */
+  --color-background: #FEFDF9;       /* cream-200 — fond de page */
+  --color-surface: #FFFFFE;          /* cream-100 — carte standard */
+  --color-surface-raised: #FFFFFF;   /* cream-50  — carte raised, modale */
+  --color-surface-sunken: #FAF7EE;   /* cream-300 — bloc de code, aside */
+  --color-border: #F1EDE0;           /* cream-400 — bordure hairline */
+  --color-border-strong: #DCD6C4;    /* cream-500 — focus, état actif */
+  --color-text: #2B2D2B;             /* cream-900 — texte principal */
+  --color-text-soft: #6B6B62;        /* cream-700 — sous-titres, labels */
+  --color-text-muted: #ADA896;       /* cream-600 — meta, timestamps */
+  --color-primary: #2E6F6A;          /* teal-600 — boutons, liens */
+  --color-primary-hover: #3D807A;    /* teal-500 */
+  --color-primary-active: #265A56;   /* teal-700 */
+  --color-primary-soft: #DCE9E7;     /* teal-100 — badges, info-box */
+  --color-accent-text: #2E6F6A;      /* teal-600 — accent éditorial */
+
+  /* --- États système (UI uniquement) ----------------------------------- */
+  --color-success-bg: #EAF2E4;
+  --color-success-text: #3B6D11;
+  --color-warning-bg: #FAEEDA;
+  --color-warning-text: #854F0B;
+  --color-danger-bg: #FCEBEB;
+  --color-danger-text: #A32D2D;
+  --color-info-bg: #DCE9E7;          /* teal-100 (cohérence sauge) */
+  --color-info-text: #265A56;        /* teal-700 */
+
+  /* --- Typographie : familles ------------------------------------------ */
+  /* `--font-plex|nunito|jet` sont injectés à la racine par Astro Fonts API
+     (avec fallbacks optimisés via capsize). On alias les noms canoniques
+     du design system par-dessus.                                          */
+  --font-serif: var(--font-plex);    /* IBM Plex Sans — titres */
+  --font-sans: var(--font-nunito);   /* Nunito Sans — corps + UI */
+  --font-mono: var(--font-jet);      /* JetBrains Mono — code */
+
+  /* --- Typographie : échelle de tailles -------------------------------- */
+  --text-2xs: 11px;
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-body: 16px;
+  --text-lead: 18px;
+  --text-h3: 20px;
+  --text-h2-sm: 24px;
+  --text-h2: 28px;
+  --text-h2-lg: 32px;
+  --text-h1-sm: 36px;
+  --text-h1: 42px;
+  --text-display: 56px;
+
+  /* --- Layout : rayons de bordure -------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 7px;
+  --radius-lg: 10px;
+  --radius-pill: 999px;
+
+  /* --- Layout : ombre (la seule du système) ---------------------------- */
+  --shadow-card-hover: 0 2px 8px rgba(43, 45, 43, 0.06);
 }
 
-/* Dark mode via la préférence système (variant `dark:` de Tailwind v4). */
-@custom-variant dark (&:where(.dark, .dark *), @media (prefers-color-scheme: dark));
+/* =========================================================================
+   Tokens hors @theme — vars CSS pures, pas d'utilities Tailwind générées.
+   Utilisés via `var(--lh-tight)` etc. dans les composants ou base styles.
+   Conservent les noms canoniques du design system (lh, ls, fw, space).
+   ========================================================================= */
+
+:root {
+  /* Line heights */
+  --lh-tight: 1.1;
+  --lh-title: 1.25;
+  --lh-snug: 1.3;
+  --lh-normal: 1.55;
+  --lh-body: 1.7;
+
+  /* Letter spacing */
+  --ls-h3: -0.005em;
+  --ls-h2: -0.015em;
+  --ls-h1: -0.02em;
+  --ls-display: -0.025em;
+  --ls-label: 0.08em;
+
+  /* Font weights — seules trois graisses dans le système */
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-accent: 600;
+
+  /* Spacing scale — alignée sur Tailwind v4 (--spacing: 0.25rem) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+
+  /* Largeurs de lecture */
+  --read-width-body: 600px;
+  --read-width-lead: 580px;
+  --read-width-hero: 760px;
+  --read-width-wide: 940px;
+
+  /* Bordures réutilisables */
+  --border-hair: 0.5px solid var(--color-border);
+  --border-strong-line: 0.5px solid var(--color-border-strong);
+  --border-btn: 1px solid var(--color-primary);
+}
+
+/* =========================================================================
+   Base styles — section 5 du design-tokens.md
+   ========================================================================= */
 
 html,
 body {
-  @apply m-0 p-0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  @apply bg-white text-zinc-950 antialiased dark:bg-zinc-950 dark:text-zinc-50;
+  background: var(--color-background);
+  color: var(--color-text);
   font-family: var(--font-sans);
+  font-size: var(--text-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Titres : IBM Plex Sans, weight 500, color text */
+h1,
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-medium);
+  color: var(--color-text);
+  margin: 0;
+}
+
+h1 {
+  font-size: var(--text-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-h1);
+}
+
+h2 {
+  font-size: var(--text-h2);
+  line-height: var(--lh-title);
+  letter-spacing: var(--ls-h2);
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: var(--text-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-h3);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Paragraphes : max-width contenu, jamais dépassé pour du texte long */
+p {
+  margin: 0 0 1.15rem 0;
+  max-width: var(--read-width-body);
+}
+
+/* Liens inline : sauge, weight 500, underline fine */
+a {
+  color: var(--color-primary);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(46, 111, 106, 0.4);
+  transition: border-color 120ms ease;
+}
+
+a:hover {
+  border-bottom-color: var(--color-primary);
+}
+
+/* Nav links : pas d'underline, sauge si actif */
+.nav-link {
+  color: var(--color-text);
+  font-weight: var(--fw-regular);
+  border-bottom: none;
+}
+
+.nav-link:hover {
+  border-bottom: none;
+}
+
+.nav-link.is-active {
+  color: var(--color-primary);
+  font-weight: var(--fw-medium);
+}
+
+/* Accent éditorial — 1 mot par titre, sauge weight 600 */
+.text-accent,
+.accent {
+  color: var(--color-accent-text);
+  font-weight: var(--fw-accent);
+}
+
+/* Code inline */
+code {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-cream-50);
+  border: 0.5px solid var(--color-cream-500);
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* Code blocks */
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-surface-sunken);
+  border: 0.5px solid var(--color-border);
+  padding: 14px 16px;
+  border-radius: 8px;
+  overflow-x: auto;
+  line-height: var(--lh-normal);
+}
+
+pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
 }
