@@ -46,37 +46,24 @@ const stack = [
 <script>
   import { gsap } from '@/lib/gsap';
 
-  let mm: ReturnType<typeof gsap.matchMedia> | null = null;
-
-  function animate() {
-    mm?.revert();
-    mm = gsap.matchMedia();
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap
-        .timeline({ defaults: { ease: 'power3.out' } })
-        .from('[data-hero-title]', { y: 32, opacity: 0, duration: 0.7 })
-        .from(
-          '[data-hero-text]',
-          { y: 20, opacity: 0, duration: 0.6 },
-          '-=0.4',
-        )
-        .from(
-          '[data-hero-card]',
-          { y: 24, opacity: 0, duration: 0.5, stagger: 0.08 },
-          '-=0.35',
-        )
-        .from(
-          '[data-hero-footer]',
-          { y: 12, opacity: 0, duration: 0.4 },
-          '-=0.2',
-        );
-    });
-  }
-
-  animate();
-  document.addEventListener('astro:page-load', animate);
-  document.addEventListener('astro:before-preparation', () => {
-    mm?.revert();
-    mm = null;
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    gsap
+      .timeline({ defaults: { ease: 'power3.out' } })
+      .from('[data-hero-title]', { y: 32, opacity: 0, duration: 0.7 })
+      .from(
+        '[data-hero-text]',
+        { y: 20, opacity: 0, duration: 0.6 },
+        '-=0.4',
+      )
+      .from(
+        '[data-hero-card]',
+        { y: 24, opacity: 0, duration: 0.5, stagger: 0.08 },
+        '-=0.35',
+      )
+      .from(
+        '[data-hero-footer]',
+        { y: 12, opacity: 0, duration: 0.4 },
+        '-=0.2',
+      );
   });
 </script>

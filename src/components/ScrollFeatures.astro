@@ -47,46 +47,31 @@ const features = [
 </section>
 
 <script>
-  import { gsap, ScrollTrigger } from '@/lib/gsap';
+  import { gsap } from '@/lib/gsap';
 
-  let mm: ReturnType<typeof gsap.matchMedia> | null = null;
+  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
+    gsap.from('[data-scroll-heading]', {
+      y: 30,
+      opacity: 0,
+      duration: 0.7,
+      ease: 'power3.out',
+      scrollTrigger: {
+        trigger: '[data-scroll-heading]',
+        start: 'top 85%',
+      },
+    });
 
-  function animate() {
-    mm?.revert();
-    ScrollTrigger.killAll();
-    mm = gsap.matchMedia();
-    mm.add('(prefers-reduced-motion: no-preference)', () => {
-      gsap.from('[data-scroll-heading]', {
-        y: 30,
+    gsap.utils.toArray<HTMLElement>('[data-scroll-card]').forEach((card) => {
+      gsap.from(card, {
+        y: 40,
         opacity: 0,
         duration: 0.7,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: '[data-scroll-heading]',
+          trigger: card,
           start: 'top 85%',
         },
       });
-
-      gsap.utils.toArray<HTMLElement>('[data-scroll-card]').forEach((card) => {
-        gsap.from(card, {
-          y: 40,
-          opacity: 0,
-          duration: 0.7,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-          },
-        });
-      });
     });
-  }
-
-  animate();
-  document.addEventListener('astro:page-load', animate);
-  document.addEventListener('astro:before-preparation', () => {
-    mm?.revert();
-    ScrollTrigger.killAll();
-    mm = null;
   });
 </script>
